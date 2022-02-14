@@ -1,1 +1,8 @@
-gcc -Wall -Wextra -Wno-deprecated-declarations -o myalloc myalloc.c
+CFLAGS = -g -Wall
+TARGETS = output
+
+output: source.c
+    gcc $< $(CFLAGS) -o $@
+
+clean:
+    rm $(TARGETS)
