@@ -1,8 +1,2 @@
-CFLAGS = -g -Wall
-TARGETS = output
-
-output: source.c
-    gcc $< $(CFLAGS) -o $@
-
-clean:
-    rm $(TARGETS)
+myalloc: myalloc.c
+    gcc -o -Wall -Wextra -Wno-dprecated-declartions -o
