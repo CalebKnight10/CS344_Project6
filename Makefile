@@ -1,0 +1,1 @@
+gcc -Wall -Wextra -Wno-deprecated-declarations -o myalloc myalloc.c

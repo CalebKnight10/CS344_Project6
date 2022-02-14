@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+
 
 #define ALIGNMENT 16   // Must be power of 2
 #define GET_PAD(x) ((ALIGNMENT - 1) - (((x) - 1) & (ALIGNMENT - 1)))
@@ -14,18 +16,17 @@
 
 struct block *head = NULL;
 
-void *h = sbrk(1024);
-
-size_t padded_block_size = PADDED_SIZE(sizeof(struct block));
-
 struct block {
     struct block *next;
     int size;     // Bytes
     int in_use;   // Boolean
-}
+};
 
 void *myalloc(int size)
 {
+	void *h = sbrk(1024);
+	size_t padded_block_size = PADDED_SIZE(sizeof(struct block));
+
 	if(head == NULL) {
 		head =h;
 		head->next = NULL;
@@ -55,4 +56,13 @@ void print_data(void)
     }
 
     printf("\n");
+}
+
+int main(void) {
+    void *p;
+
+    print_data();
+    p = myalloc(64);
+    print_data();
+
 }
