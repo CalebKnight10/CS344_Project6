@@ -14,10 +14,24 @@
 
 struct block *head = NULL;
 
+void *h = sbrk(1024);
+
+size_t padded_block_size = PADDED_SIZE(sizeof(struct block));
+
 struct block {
     struct block *next;
     int size;     // Bytes
     int in_use;   // Boolean
+}
+
+void *myalloc(int size)
+{
+	if(head == NULL) {
+		head =h;
+		head->next = NULL;
+		head->size = 1024 - padded_block_size;
+		head->in_use = 0;
+	}
 }
 
 void print_data(void)
